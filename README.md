@@ -218,4 +218,4 @@ Apache License 2.0
 
 ---
 
-*Based on the Complete Taxonomy of AI Agent Memory by Dr. Maryam Miradi.*
+*Based on established cognitive science models of human memory architecture.*
