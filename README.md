@@ -7,7 +7,7 @@
 
 Most AI agents have one kind of memory: a context window that resets.
 
-**remembrance** is a Python framework for building agents with the complete taxonomy of memory — nine distinct layers, organized across four cognitive dimensions. Based on Dr. Maryam Miradi's *Complete Taxonomy of AI Agent Memory*.
+**remembrance** is a Python framework for building agents with nine distinct memory layers, organized across four cognitive dimensions — a synthesis of established cognitive-science memory models applied to AI agent architecture.
 
 ---
 
@@ -72,11 +72,26 @@ remembrance/
 
 ---
 
+## Install
+
+```bash
+pip install -e .
+```
+
+Or with optional extras:
+
+```bash
+pip install -e ".[dev]"       # adds pytest + pytest-cov
+pip install -e ".[vector]"    # adds chromadb
+```
+
+---
+
 ## Quickstart
 
 ```python
-from agent import BaseAgent, AgentConfig
-from memory.collective import CollectiveMemory
+from remembrance import BaseAgent, AgentConfig
+from remembrance.memory.collective import CollectiveMemory
 
 agent = BaseAgent(
     config=AgentConfig(name="my-agent", role="assistant", domain="legal"),
@@ -125,7 +140,7 @@ print(agent.memory_summary())
 ## What Strategic Memory Looks Like
 
 ```python
-from memory.strategic import StrategicMemory
+from remembrance.memory.strategic import StrategicMemory
 
 sm = StrategicMemory()
 sm.register_strategy("deductive", "Rule-based reasoning", domain="legal")
@@ -146,7 +161,7 @@ print(sm.systematic_biases())  # [("inductive", -0.05)]
 ## Plugging in a Vector Backend
 
 ```python
-from memory.semantic import SemanticMemory
+from remembrance.memory.semantic import SemanticMemory
 import chromadb
 
 semantic = SemanticMemory()

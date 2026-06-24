@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "remembrance"
+version = "0.1.0"
+description = "A Python framework for building agents with the complete nine-layer memory taxonomy"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Mario Ulises Guras", email = "ulguras@gmail.com" }]
+readme = "README.md"
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov"]
+vector = ["chromadb"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["remembrance*"]

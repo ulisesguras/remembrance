@@ -20,11 +20,26 @@ python cases/spatial_intelligence.py
 python cases/cognitive_agent.py
 ```
 
-No build step required — pure Python, no external dependencies in core.
+Install (editable, includes dev extras):
+
+```bash
+pip install -e ".[dev]"
+```
+
+No external dependencies in core — pure Python.
 
 ## Architecture
 
-**remembrance** is a memory-layer framework for AI agents, not an LLM wrapper. The nine memory modules in `memory/` are independent, composable primitives. `BaseAgent` in `agent/__init__.py` wires all nine together into one ready-to-subclass class.
+**remembrance** is a pip-installable memory-layer framework for AI agents, not an LLM wrapper. The nine memory modules in `remembrance/memory/` are independent, composable primitives. `BaseAgent` in `remembrance/agent/__init__.py` wires all nine together into one ready-to-subclass class. The top-level `remembrance/__init__.py` re-exports `BaseAgent` and `AgentConfig` for convenience.
+
+```
+remembrance/          ← installable package root
+├── __init__.py       ← re-exports BaseAgent, AgentConfig
+├── agent/
+│   └── __init__.py   ← BaseAgent, AgentConfig
+└── memory/
+    └── *.py          ← nine independent memory modules
+```
 
 ### Memory taxonomy
 
@@ -42,7 +57,7 @@ No build step required — pure Python, no external dependencies in core.
 
 ### BaseAgent
 
-`BaseAgent` (`agent/__init__.py`) exposes high-level convenience methods over the nine layers:
+`BaseAgent` (`remembrance/agent/__init__.py`) exposes high-level convenience methods over the nine layers:
 
 - `perceive(modality, content)` → sensory
 - `learn(key, value, tags)` → semantic **and** collective (simultaneously)
@@ -56,10 +71,10 @@ Override `_setup()`, `think()`, and `act()` to specialize an agent.
 ### Extending the framework
 
 - **New use case**: add a file under `cases/`; must exercise at least 4 of the 9 layers.
-- **New memory module**: add under `memory/`, add tests in `tests/`, keep the module under ~150 lines.
+- **New memory module**: add under `remembrance/memory/`, add tests in `tests/`, keep the module under ~150 lines.
 - **Vector backend for SemanticMemory**: pass `embed_fn` and a DB client to `semantic.use_vector_backend()`.
 - **Distributed CollectiveMemory**: pass a Redis/DB client as the `backend` arg to `CollectiveMemory()`.
-- **No external dependencies** may live in `memory/` unless hidden behind a backend interface.
+- **No external dependencies** may live in `remembrance/memory/` unless hidden behind a backend interface.
 
 ### Test structure
 
@@ -78,4 +93,4 @@ and dependency-free in core. Vector/Redis backends are always opt-in via interfa
 ## Conventions
 - PRs must include tests; coverage per new module required
 - Cases must exercise ≥4 of 9 layers (enforced by convention, not CI)
-- Public API surface lives in agent/__init__.py; memory modules are internal primitives
+- Public API surface lives in `remembrance/__init__.py` (re-exports) and `remembrance/agent/__init__.py`; memory modules are internal primitives
