@@ -1,5 +1,8 @@
 # remembrance
 
+[![Tests](https://github.com/ulisesguras/remembrance/actions/workflows/tests.yml/badge.svg)](https://github.com/ulisesguras/remembrance/actions/workflows/tests.yml)
+[![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
+
 > An agent that remembers — not just what happened, but what it knows, how it feels, what it plans to do, and what the whole swarm has learned together.
 
 Most AI agents have one kind of memory: a context window that resets.
