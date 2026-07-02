@@ -7,7 +7,7 @@
 
 Most AI agents have one kind of memory: a context window that resets.
 
-**remembrance** is a Python framework for building agents with nine distinct memory layers, organized across four cognitive dimensions — a synthesis of established cognitive-science memory models applied to AI agent architecture.
+**remembrance** is a Python framework for building agents with nine distinct memory layers, organized across three cognitive dimensions — a synthesis of established cognitive-science memory models applied to AI agent architecture.
 
 ---
 

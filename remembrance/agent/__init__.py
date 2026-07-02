@@ -2,20 +2,22 @@
 BaseAgent
 ---------
 A general-purpose agent with the complete memory taxonomy built in.
-Based on: Dr. Maryam Miradi's Complete Taxonomy of AI Agent Memory.
+A synthesis of established cognitive-science memory models applied
+to AI agent architecture.
 
-9 memory layers across 4 dimensions:
+9 memory layers across 3 cognitive dimensions:
 
   BY DURATION:
-    sensory / working  — short-term, in-context
-    episodic / semantic / strategic — long-term, external
+    sensory / working — short-term
+    episodic / semantic — long-term
 
   BY FUNCTION:
-    sensory → working → episodic → semantic → procedural → strategic
+    procedural — how to do things
+    strategic — self-reflection, strategy tracking, meta-learning
 
   BY SCOPE:
-    emotional + prospective = private
-    collective = shared across swarm
+    emotional / prospective — private to the agent
+    collective — shared across the fleet
 
 Override _setup(), think(), and act() to specialize.
 """
