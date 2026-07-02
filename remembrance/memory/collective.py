@@ -98,14 +98,22 @@ class CollectiveMemory:
 
     def consensus(self, key: str) -> Optional[Any]:
         """
-        Return the value with the highest average confidence for a key.
-        Simple majority/confidence-weighted agreement.
+        Return the value whose group has the highest summed confidence score.
+
+        Records are grouped by repr(value), and each group's weight is the SUM
+        of its members' confidence scores. Agreement among several contributors
+        therefore outweighs a single high-confidence outlier, making it harder
+        for a malicious agent to poison the pool by injecting one very confident
+        but incorrect value.
         """
         records = self._index.get(key, [])
         if not records:
             return None
-        best = max(records, key=lambda r: r.confidence)
-        return best.value
+        groups: Dict[str, list] = {}
+        for r in records:
+            groups.setdefault(repr(r.value), []).append(r)
+        best_group = max(groups.values(), key=lambda g: sum(r.confidence for r in g))
+        return best_group[0].value
 
     def __len__(self) -> int:
         return len(self._log)

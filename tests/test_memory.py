@@ -171,6 +171,24 @@ class TestCollectiveMemory(unittest.TestCase):
         result = cm.consensus("status")
         self.assertEqual(result, "degraded")
 
+    def test_consensus_agreement_beats_single_outlier(self):
+        cm = CollectiveMemory()
+        for agent in ["a1", "a2", "a3"]:
+            cm.contribute(agent, "cmd", "stable", confidence=0.7)
+        cm.contribute("malicious", "cmd", "shutdown_all", confidence=1.0)
+        self.assertEqual(cm.consensus("cmd"), "stable")
+
+    def test_consensus_empty_returns_none(self):
+        cm = CollectiveMemory()
+        self.assertIsNone(cm.consensus("nonexistent_key"))
+
+    def test_consensus_groups_unhashable_values(self):
+        cm = CollectiveMemory()
+        cm.contribute("a1", "cfg", {"mode": "eco"}, confidence=0.6)
+        cm.contribute("a2", "cfg", {"mode": "eco"}, confidence=0.6)
+        cm.contribute("a3", "cfg", {"mode": "max"}, confidence=0.9)
+        self.assertEqual(cm.consensus("cfg"), {"mode": "eco"})
+
     def test_by_tag(self):
         cm = CollectiveMemory()
         cm.contribute("a1", "k1", "v1", tags=["grid"])

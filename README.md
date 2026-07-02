@@ -67,7 +67,7 @@ remembrance/
 │   └── cognitive_agent.py
 │
 └── tests/
-    └── test_memory.py    ← 29 tests, all passing
+    └── test_memory.py    ← 32 tests, all passing
 ```
 
 ---
@@ -192,7 +192,7 @@ python cases/cognitive_agent.py
 python tests/test_memory.py
 ```
 
-29 tests across all 9 memory layers.
+32 tests across all 9 memory layers.
 
 ---
 
